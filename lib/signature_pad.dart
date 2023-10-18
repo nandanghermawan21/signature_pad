@@ -84,7 +84,8 @@ class SignatureComponentController
 
   Future<bool> readData() async {
     var image = await value.sign.currentState!.getData();
-    var data = await (image.toByteData(format: ui.ImageByteFormat.png) as Future<ByteData>);
+    var data = await (image.toByteData(format: ui.ImageByteFormat.png));
+    if(data == null) return false;
     value.base64File =
         baseImageEncoder + base64.encode(data.buffer.asUint8List());
     notifyListeners();
